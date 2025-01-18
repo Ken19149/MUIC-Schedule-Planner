@@ -1,0 +1,9 @@
+{
+    "java.project.sourcePaths": [
+        "."
+    ],
+    "java.project.referencedLibraries": [
+        "c:\\Users\\Ken\\Documents\\Downloads\\json-20250107.jar"
+    ],
+    "java.dependency.packagePresentation": "flat"
+}
