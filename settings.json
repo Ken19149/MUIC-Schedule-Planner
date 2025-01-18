@@ -3,7 +3,8 @@
         "."
     ],
     "java.project.referencedLibraries": [
-        "c:\\Users\\Ken\\Documents\\Downloads\\json-20250107.jar"
+        "c:\\Users\\Ken\\Documents\\Downloads\\commons-io-2.18.0-bin\\commons-io-2.18.0\\commons-io-2.18.0.jar",
+        "scheduleplanner/json-java.jar"
     ],
     "java.dependency.packagePresentation": "flat"
 }
