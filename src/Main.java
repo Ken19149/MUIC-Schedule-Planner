@@ -1,5 +1,4 @@
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.io.IOUtils;
@@ -12,17 +11,9 @@ public class Main {
             JSONObject json = new JSONObject(IOUtils.toString(new URL("https://os.muic.io/data.json"), StandardCharsets.UTF_8));
             //System.out.println(json);
 
-            /*
-            JSONArray dataArray = json.getJSONArray("data");
-            JSONArray firstElement = dataArray.getJSONArray(0);
-            String sciValue = firstElement.getString(0);
-            */
-
             System.out.println(json.getString("title"));
-            // System.out.println(json);
+            System.out.println(json.getJSONArray("data").getJSONArray(0));
 
-            // Printing the value "SCI"
-            //System.out.println(sciValue);
         }
         catch (Exception e){
             e.printStackTrace();
