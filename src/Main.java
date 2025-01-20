@@ -71,6 +71,7 @@ public class Main {
         return null;
     }
 
+    // input: code/name + sec/day–time
     public static JSONArray searchCourse(JSONArray data, String value){
         return null;
     }

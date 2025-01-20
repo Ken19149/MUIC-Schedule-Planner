@@ -1,0 +1,52 @@
+2 methods:
+- input=schedule        output=possible additional courses          // (1) pre-planned people looking for alternative schedules
+- input = timeslot      output=possible courses in that timeslot    // (2) people looking for a course in a specific timeslot
+
+course selection order: // for (1)
+- (partial) code/name -> show possible course code+names -> choose the correct one // if only 1 choice then move on the section/time
+    # maybe search for i if "key" in "name" add to list
+- section/time // for both (1) & (2)
+    # time selection: sun/mon/tue/wed/thu/fri/sat 8.00/8:00/08:00/08.00/08/8 <-- start time(?)
+
+filters:
+    credits:
+    - 1 credit
+    - 2 credits
+    - 3 credits
+    - 4 credits
+
+    - 0 credits
+
+    (6/8/12-credit courses exist: internships/projects)
+
+    hours:
+    - 1 hour
+    - 2 hours
+    - 3 hours
+    - 4 hours
+    - 4+ hours
+
+    exclusion:
+    - max capacity courses
+
+    - no class at xx:xx
+    - no class after xx:xx
+    - no class before xx:xx
+
+time priorities: // what do you think?
+- 10.00 12.00 14.00 8.00 16.00 (?)
+
+displaying result: // something like this maybe
+=============================================================================================================
+    |                             Trimester 2, 2024-2025 Academic Year Schedule                             |
+=============================================================================================================
+    | 08.00 | 09.00 | 10.00 | 11:00 | 12:00 | 13:00 | 14:00 | 15:00 | 16:00 | 17:00 | 18:00 | 19:00 | 20:00 |
+=============================================================================================================
+Sun |       |       |       |       |       |       |       |       |       |       |       |       |       |
+Mon |       |       <———————————————————————>       <———————————————————————>       |       |       |       |
+Tue |       |       <———————————————————————>       |       <———————————————>       |       |       |       |
+Wed |       |       <———————————————————————>       <———————————————————————>       |       |       |       |
+Thu | <—————————————————————————————————————>       |       <———————————————>       |       |       |       |
+Fri |       |       |       |       |       |       |       |       |       |       |       |       |       |
+Sat |       |       |       |       |       |       |       |       |       |       |       |       |       |
+=============================================================================================================
