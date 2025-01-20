@@ -17,21 +17,27 @@ import java.util.Scanner;
 
 */
 
+// course data format ["0-Division: DIV", "1-Subject: Code + Name + Credit(n-n-n)", "2-Section(n)", "3-Type: Master/Joint", "4-Instructor", "5-Actual Registered", "6-Registered", "7-Seat Available", "8-Room/Time", "9-Final", "10-Info", "11-0x101???", "12-Remark"]
+
 public class Main {
 
     private static final String fileLocation = "src/schedule.txt";
     private static final String instructionMessage = "type help for information";
 
+    public static final String title = muicData().getString("title");
+    public static JSONArray data = muicData().getJSONArray("data");
+    public static JSONObject currentPlan = new JSONObject();
+
     public static void main(String[] args){
         String initialData = initialFile();
-        System.out.println("initial data: " + initialData);
+        System.out.println(title);
+
     }
 
     public static JSONObject muicData(){
         try{
             URL link = new URL("https://os.muic.io/data.json");
-            JSONObject json = new JSONObject(IOUtils.toString(link, StandardCharsets.UTF_8));
-            return json;
+            return new JSONObject(IOUtils.toString(link, StandardCharsets.UTF_8));
         }
         catch (Exception e){
             e.printStackTrace();
@@ -39,7 +45,7 @@ public class Main {
         return null;
     }
 
-    public static String initialFile(){
+    private static String initialFile(){
         // try to create schedule.txt with initial message but if it's already exist, return data from that file
         try {
             File file = new File(fileLocation);
@@ -62,6 +68,14 @@ public class Main {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+        return null;
+    }
+
+    public static JSONArray searchCourse(JSONArray data, String value){
+        return null;
+    }
+
+    public static JSONArray searchTime(JSONArray data, String value){
         return null;
     }
 
