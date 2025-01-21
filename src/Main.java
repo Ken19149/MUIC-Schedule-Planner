@@ -6,9 +6,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -32,8 +32,20 @@ public class Main {
     public static void main(String[] args){
         String initialData = initialFile();
         System.out.println(title);
-        System.out.println(searchCourse(data, "ICGL132"));
-        System.out.println(commands);
+        // loop command
+        while (true) {
+            Scanner in = new Scanner(System.in);
+            String input = in.nextLine();
+            String command = input.split(" ", 2)[0];    // first keyword command | the rest parameters
+            System.out.println(Arrays.toString(input.split(" ", 2)));
+
+            // stop program command
+            if (command.matches("|exit|stop|break")){
+                break;
+            }
+            // System.out.println(searchCourse(data, command));
+        }
+        System.out.println("exited loop");
 
     }
 
@@ -76,18 +88,64 @@ public class Main {
 
     // input: code/name + sec/day–time
     public static JSONArray searchCourse(JSONArray data, String value){
+        // search courses
         JSONArray candidates = new JSONArray();
         for(int i=0;i<data.length();i++){
-            if (data.getJSONArray(i).getString(1).contains(value)){
+            if (data.getJSONArray(i).getString(1).toLowerCase().contains(value.toLowerCase())){
                 candidates.put(data.getJSONArray(i));
-                System.out.println(data.getJSONArray(i));
+                System.out.println(Integer.toString(candidates.length()) + data.getJSONArray(i));
             }
         }
-        return candidates;
+
+        // select listed courses from index
+
+        Scanner input = new Scanner(System.in);
+        System.out.print(Messages.selectCourse);
+
+        try {
+            String inputStr = input.nextLine();
+            if (inputStr.isEmpty()) { // if not choose then cancel search function
+                System.out.println(Messages.searchCancel);
+                return null;
+            }
+            int index = Integer.parseInt(inputStr);
+            return candidates.getJSONArray(index-1);
+        } catch (Exception e) {
+            while (true) {
+                try {
+                    System.out.print(Messages.selectAgain);
+                    String inputStr = input.nextLine();
+                    if (inputStr.isEmpty()) { // if not choose then cancel search function
+                        System.out.println(Messages.searchCancel);
+                        return null;
+                    }
+                    int index = Integer.parseInt(inputStr);
+                    return candidates.getJSONArray(index - 1);
+                } catch (Exception ee) {
+
+                }
+            }
+        }
+
     }
 
     public static JSONArray searchTime(JSONArray data, String value){
         return null;
     }
 
+    public static String info(JSONArray course) {
+
+        return "yes";
+    }
+
+}
+
+class Messages {
+    static String selectCourse = "Select course: ";
+    static String searchCancel = "Search canceled";
+    static String selectAgain = "Please choose the course by index: ";
+}
+
+class Commands {
+    static String search = "";
 }
