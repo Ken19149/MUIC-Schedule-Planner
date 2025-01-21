@@ -22,7 +22,6 @@ import java.util.Scanner;
 public class Main {
 
     private static final String fileLocation = "src/schedule.txt";
-    private static final String instructionMessage = "type help for information";
     private static final JSONObject commands = new JSONObject().put("help","adasd"); // help filter/search/
 
     public static final String title = muicData().getString("title");
@@ -67,7 +66,7 @@ public class Main {
             if (file.createNewFile()) {
                 System.out.println("File created: " + file.getName());
                 FileWriter myWriter = new FileWriter(fileLocation);
-                myWriter.write(instructionMessage);
+                myWriter.write(Messages.instructionMessage);
                 myWriter.close();
             } else {
                 Scanner myReader = new Scanner(file);
@@ -141,9 +140,11 @@ public class Main {
 }
 
 class Messages {
+    static String instructionMessage = "type help for information";
     static String selectCourse = "Select course: ";
     static String searchCancel = "Search canceled";
     static String selectAgain = "Please choose the course by index: ";
+
 }
 
 class Commands {
