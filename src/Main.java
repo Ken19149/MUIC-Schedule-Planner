@@ -23,6 +23,7 @@ public class Main {
 
     private static final String fileLocation = "src/schedule.txt";
     private static final String instructionMessage = "type help for information";
+    private static final JSONObject commands = new JSONObject().put("help","adasd"); // help filter/search/
 
     public static final String title = muicData().getString("title");
     public static JSONArray data = muicData().getJSONArray("data");
@@ -31,6 +32,8 @@ public class Main {
     public static void main(String[] args){
         String initialData = initialFile();
         System.out.println(title);
+        System.out.println(searchCourse(data, "ICGL132"));
+        System.out.println(commands);
 
     }
 
@@ -73,7 +76,14 @@ public class Main {
 
     // input: code/name + sec/day–time
     public static JSONArray searchCourse(JSONArray data, String value){
-        return null;
+        JSONArray candidates = new JSONArray();
+        for(int i=0;i<data.length();i++){
+            if (data.getJSONArray(i).getString(1).contains(value)){
+                candidates.put(data.getJSONArray(i));
+                System.out.println(data.getJSONArray(i));
+            }
+        }
+        return candidates;
     }
 
     public static JSONArray searchTime(JSONArray data, String value){
