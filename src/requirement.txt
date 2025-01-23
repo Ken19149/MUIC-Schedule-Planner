@@ -1,12 +1,35 @@
-2 methods:
-- input=schedule        output=possible additional courses          // (1) pre-planned people looking for alternative schedules
-- input = timeslot      output=possible courses in that timeslot    // (2) people looking for a course in a specific timeslot
+A schedule program that take data from https://os.muic.io/data.json and improve the course search function by adding time-search function.
+
+Functional Requirements:
+- Course Search Function
+    - Select Course
+    - Add Course
+    - Remove Course
+- List Course and Display Function
+- Read JSON Data from MUIC URL Function
+- Command Interface Function
+
+Non-Functional Requirements:
+- Filters
+- Help Commands
+- Course Search Error Prevention
+- Save Plans as a File
+- Read Saved File Data
+- Multiple Plans
+- Template Messages
+- Invalid Command Input Prevention
+- Save Plan Before Crash Function
+- Time Format Check Function
+
+Course Search Methods:
+- input = schedule      output=possible additional courses          // (1) for pre-planned people looking for alternative schedules
+- input = timeslot      output=possible courses in specific that timeslot    // (2) for people looking for a course in a specific timeslot
 
 course selection order: // for (1)
-- (partial) code/name -> show possible course code+names -> choose the correct one // if only 1 choice then move on the section/time
-    # maybe search for i if "key" in "name" add to list
+- (partial) code/name aka "keyword" -> show possible courses data -> choose the correct one
+
 - section/time // for both (1) & (2)
-    # time selection: sun/mon/tue/wed/thu/fri/sat 8.00/8:00/08:00/08.00/08/8 <-- start time(?)
+    # time selection: sun/mon/tue/wed/thu/fri/sat           8.00/8:00/08:00/08.00/08/8 <-- start time
 
 filters:
     credits:
@@ -33,9 +56,6 @@ filters:
     - no class after xx:xx
     - no class before xx:xx
 
-time priorities: // what do you think?
-- 10.00 12.00 14.00 8.00 16.00 (?)
-
 displaying result: // something like this maybe
 =============================================================================================================
     |                             Trimester 2, 2024-2025 Academic Year Schedule                             |
@@ -52,20 +72,20 @@ Sat |       |       |       |       |       |       |       |       |       |   
 =============================================================================================================
 
 commands:
-    help:
+    help: list and show instruction for each command
     - filter
     - search
 
-    filter:
+    filter: adjust possible schedule plan according to the filters
     - above-mentioned
 
-    search:
+    search: search courses
     - name/day/time
 
-    plan:
+    plan: show plans you have created to select and edit/add/remove/rename
 
-    save:
+    save: save schedule plan as a file in the selected location
 
-    show:
+    show/display: display the schedule as a text GUI
 
-    list:
+    list: list all the courses selected for the schedule
