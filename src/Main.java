@@ -1,5 +1,3 @@
-package scheduleplanner;
-
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
@@ -21,7 +19,7 @@ import java.util.Scanner;
 
 // course data format ["0-Division: DIV", "1-Subject: Code + Name + Credit(n-n-n)", "2-Section(n)", "3-Type: Master/Joint", "4-Instructor", "5-Actual Registered", "6-Registered", "7-Seat Available", "8-Room/Time", "9-Final", "10-Info", "11-0x101???", "12-Remark"]
 
-public class planner {
+public class Main {
 
     private static final String fileLocation = "src/schedule.txt";
     private static final JSONObject commands = new JSONObject().put("help","adasd"); // help filter/search/
@@ -108,7 +106,7 @@ public class planner {
             }
         }
         // check if no course found
-        if (candidates.length()==0) {
+        if (candidates.isEmpty()) {
             System.out.println(Messages.noCourseFound);
             System.out.print("Search: ");
             return searchCourse(data, in.nextLine());
