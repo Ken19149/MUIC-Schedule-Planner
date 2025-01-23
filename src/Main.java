@@ -36,13 +36,13 @@ public class planner {
 
 
         String initialData = initialFile();
-        System.out.println(title);
+        System.out.println(title + "\n\n" + Messages.initialMessage + "\n" + Messages.instructionMessage);
         // loop command
         while (true) {
             // Scanner in = new Scanner(System.in);
             String input = in.nextLine();
-            String command = input.split(" ", 2)[0];    // first keyword command | the rest parameters
-            //System.out.println(Arrays.toString(input.split(" ", 2)));
+            String command = input.split(" ", 2)[0].toLowerCase();    // first keyword command | the rest parameters
+            String suffix = input.split(" ", 2)[(input.split(" ", 2)).length-1].toLowerCase();  // last array index even if it has one
 
 
             // stop program command
@@ -51,9 +51,9 @@ public class planner {
             } else if (command.matches("search")) {
                 System.out.print("Search: ");
                 System.out.println(searchCourse(data, in.nextLine()));
+            } else {
+                System.out.println(Messages.invalidCommand);
             }
-
-
 
         }
         System.out.println("exited loop");
@@ -107,8 +107,14 @@ public class planner {
                 System.out.println(Integer.toString(candidates.length()) + data.getJSONArray(i));
             }
         }
+        // check if no course found
+        if (candidates.length()==0) {
+            System.out.println(Messages.noCourseFound);
+            System.out.print("Search: ");
+            return searchCourse(data, in.nextLine());
+        }
 
-        // select listed courses from index
+        // select listed courses from index //
 
         // Scanner in = new Scanner(System.in);
         System.out.print(Messages.selectCourse);
@@ -152,10 +158,18 @@ public class planner {
 }
 
 class Messages {
-    static String instructionMessage = "type help for information";
+    // instructions and setup messages
+    static String instructionMessage = "Type \"help\" for information";
+    static String initialMessage = "Type \"search\" to start selecting a course";
+
+    // course-related messages
     static String selectCourse = "Select course: ";
     static String searchCancel = "Search canceled";
     static String selectAgain = "Please choose the course by index: ";
+    static String noCourseFound = "No course found. Please try another term";
+
+    // error messages
+    static String invalidCommand = "Invalid command. Please type again";
 
 }
 
