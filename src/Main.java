@@ -1,3 +1,5 @@
+package scheduleplanner;
+
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
@@ -19,7 +21,7 @@ import java.util.Scanner;
 
 // course data format ["0-Division: DIV", "1-Subject: Code + Name + Credit(n-n-n)", "2-Section(n)", "3-Type: Master/Joint", "4-Instructor", "5-Actual Registered", "6-Registered", "7-Seat Available", "8-Room/Time", "9-Final", "10-Info", "11-0x101???", "12-Remark"]
 
-public class Main {
+public class planner {
 
     private static final String fileLocation = "src/schedule.txt";
     private static final JSONObject commands = new JSONObject().put("help","adasd"); // help filter/search/
@@ -28,21 +30,31 @@ public class Main {
     public static JSONArray data = muicData().getJSONArray("data");
     public static JSONObject currentPlan = new JSONObject();
 
+    static final Scanner in = new Scanner(System.in);
+
     public static void main(String[] args){
+
+
         String initialData = initialFile();
         System.out.println(title);
         // loop command
         while (true) {
-            Scanner in = new Scanner(System.in);
+            // Scanner in = new Scanner(System.in);
             String input = in.nextLine();
             String command = input.split(" ", 2)[0];    // first keyword command | the rest parameters
-            System.out.println(Arrays.toString(input.split(" ", 2)));
+            //System.out.println(Arrays.toString(input.split(" ", 2)));
+
 
             // stop program command
             if (command.matches("|exit|stop|break")){
                 break;
+            } else if (command.matches("search")) {
+                System.out.print("Search: ");
+                System.out.println(searchCourse(data, in.nextLine()));
             }
-            // System.out.println(searchCourse(data, command));
+
+
+
         }
         System.out.println("exited loop");
 
@@ -98,11 +110,11 @@ public class Main {
 
         // select listed courses from index
 
-        Scanner input = new Scanner(System.in);
+        // Scanner in = new Scanner(System.in);
         System.out.print(Messages.selectCourse);
 
         try {
-            String inputStr = input.nextLine();
+            String inputStr = in.nextLine();
             if (inputStr.isEmpty()) { // if not choose then cancel search function
                 System.out.println(Messages.searchCancel);
                 return null;
@@ -113,7 +125,7 @@ public class Main {
             while (true) {
                 try {
                     System.out.print(Messages.selectAgain);
-                    String inputStr = input.nextLine();
+                    String inputStr = in.nextLine();
                     if (inputStr.isEmpty()) { // if not choose then cancel search function
                         System.out.println(Messages.searchCancel);
                         return null;
