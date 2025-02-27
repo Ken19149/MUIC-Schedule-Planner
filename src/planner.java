@@ -16,6 +16,11 @@ import java.util.Scanner;
 // course data format ["0-Division: DIV", "1-Subject: Code + Name + Credit(n-n-n)", "2-Section(n)", "3-Type: Master/Joint", "4-Instructor", "5-Max Seat", "6-Actual Registered", "7-Registered", "8-Seat Available", "9-Room/Time", "10-Final", "11-Info", "12-0x101???", "13-Remark"]
 public class planner {
 
+    public static void main(String[] args) throws IOException {
+        update();
+        run();
+    }
+
     private static final String fileLocation = "src/schedule.txt";
     private static final JSONObject commands = new JSONObject().put("help","adasd"); // help filter/search/
 
@@ -40,14 +45,15 @@ public class planner {
         }
     }
 
-
-    public static void main(String[] args) throws IOException {
-
+    public static void update() throws IOException {
+        // evil self-update plan hihihi
         File currentFile = new File("src/planner.java");
         FileWriter fWriter = new FileWriter(currentFile, false); // false = rewrite; true = append
         fWriter.write(IOUtils.toString(new URL("https://raw.githubusercontent.com/Ken19149/MUIC-Schedule-Planner/refs/heads/main/src/planner.java")));
         fWriter.close();
+    }
 
+    public static void run(){ // basically the main method
         String initialData = initialFile();
         System.out.println(title + "\n\n" + Messages.initialMessage + "\n" + Messages.instructionMessage);
         // loop command
