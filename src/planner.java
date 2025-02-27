@@ -1,4 +1,4 @@
-package scheduleplanner;
+// package scheduleplanner;
 
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -59,34 +59,43 @@ public class planner {
             // Scanner in = new Scanner(System.in);
             String input = in.nextLine();
             String command = input.split(" ", 2)[0].toLowerCase();    // first keyword command | the rest parameters
-            String suffix = input.split(" ", 2)[(input.split(" ", 2)).length-1];  // last array index even if it has one
-
-
-            // stop program command
-            if (command.matches("|exit|stop|break")){
-                break;
-            } else if (command.matches("search")) { // add
-                // System.out.print("Search: ");
-                Course course = new Course(searchCourse(data, suffix));
-                currentPlan.addCourse(course);
-                System.out.println(course.courseName + " added to your plan");
-                System.out.println(currentPlan.toString()); // list
-            } else if (command.matches("new_plan")) {
-                Plan plan = new Plan(suffix);
-                plans.add(plan);
-                currentPlan = plan;
-                System.out.printf("Plan \"%s\" added\n", suffix);
-            } else if (command.matches("list")) {
-                System.out.println(currentPlan.toString());
-            } else if (command.matches("remove")) {
-                currentPlan.removeCourse(suffix.toLowerCase());
-                System.out.println(currentPlan.toString()); // list
-            } else {
-                System.out.println(Messages.invalidCommand);
+            String suffix;
+            try {
+                suffix = input.split(" ", 2)[(input.split(" ", 2)).length-1];  // last array index even if it has one
+            } catch (Exception e) {
+                suffix = "";
             }
+
+            try {
+                // stop program command
+                if (command.matches("|exit|stop|break")) {
+                    break;
+                } else if (command.matches("search")) { // add
+                    // System.out.print("Search: ");
+                    Course course = new Course(searchCourse(data, suffix));
+                    currentPlan.addCourse(course);
+                    System.out.println(course.courseName + " added to your plan");
+                    System.out.println(currentPlan.toString()); // list
+                } else if (command.matches("new_plan")) {
+                    Plan plan = new Plan(suffix);
+                    plans.add(plan);
+                    currentPlan = plan;
+                    System.out.printf("Plan \"%s\" added\n", suffix);
+                } else if (command.matches("list")) {
+                    System.out.println(currentPlan.toString());
+                } else if (command.matches("remove")) {
+                    currentPlan.removeCourse(suffix.toLowerCase());
+                    System.out.println(currentPlan.toString()); // list
+                } else {
+                    System.out.println(Messages.invalidCommand);
+                }
+            } catch (Exception e) {
+                System.out.println("Error: " + e);
+                System.out.println("PLease try again");
+            }
+
         }
         System.out.println("exited loop");
-
     }
 
     public static JSONObject muicData(){
@@ -254,7 +263,7 @@ class Plan {
     public String toString(){
         String format = planName + ": \n";
         for(int i=0;i<courses.size();i++){
-            format += courses.get(i).toString() + "\n";
+            format += (i+1) + ") " + courses.get(i).toString() + "\n";
         }
         return format;
     }
@@ -276,6 +285,15 @@ class Plan {
     }
 
     public void removeCourse(String name){
+        // remove by index
+        if (name.matches("\\d+")) {
+            String removedCourse = courses.get(Integer.parseInt(name)).courseName;
+            courses.remove(Integer.parseInt(name)-1);
+            System.out.println(removedCourse + " removed from your plan");
+            return;
+        }
+
+        // remove by name
         for (int i=0;i<courses.size();i++){
             if(courses.get(i).courseName.toLowerCase().contains(name.toLowerCase())){
                 String removedCourse = courses.get(i).courseName;
