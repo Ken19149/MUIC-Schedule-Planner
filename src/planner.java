@@ -135,12 +135,23 @@ public class planner {
     public static JSONArray searchCourse(JSONArray data, String value){
         // search courses
         JSONArray candidates = new JSONArray();
-        for(int i=0;i<data.length();i++){
-            if (data.getJSONArray(i).getString(1).toLowerCase().contains(value.toLowerCase())){
-                candidates.put(data.getJSONArray(i));
-                System.out.println(Integer.toString(candidates.length()) + " " + new Course(data.getJSONArray(i)).toString());
+
+        if (value.matches("mon|tue|wed|thu|fri|sat|sun")){  // search by day
+            for(int i=0;i<data.length();i++){
+                if (data.getJSONArray(i).getString(9).toLowerCase().contains(value.toLowerCase())){
+                    candidates.put(data.getJSONArray(i));
+                    System.out.println(Integer.toString(candidates.length()) + " " + new Course(data.getJSONArray(i)).toString());
+                }
+            }
+        } else {
+            for(int i=0;i<data.length();i++){   // search by name
+                if (data.getJSONArray(i).getString(1).toLowerCase().contains(value.toLowerCase())){
+                    candidates.put(data.getJSONArray(i));
+                    System.out.println(Integer.toString(candidates.length()) + " " + new Course(data.getJSONArray(i)).toString());
+                }
             }
         }
+
         // check if no course found
         if (candidates.isEmpty()) {
             System.out.println(Messages.noCourseFound);
@@ -196,7 +207,7 @@ class Messages {
     static String instructionMessage = "Type \"help\" for information";
     static String initialMessage = "Type \"new_plan\" <plan name> to create a new plan.\nThen type \"search\" <class code|keyword> to start selecting a course";
 
-    static String helpCommand = "new_plan <plan name>\nsearch <class code|keyword>\nremove <index|class keyword>\nhelp\nexit|stop|break\nlist";
+    static String helpCommand = "new_plan <plan name>\nsearch <class code|keyword|day>\nremove <index|class keyword>\nhelp\nexit|stop|break\nlist";
 
     // course-related messages
     static String selectCourse = "Select course: ";
