@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 // course data format ["0-Division: DIV", "1-Subject: Code + Name + Credit(n-n-n)", "2-Section(n)", "3-Type: Master/Joint", "4-Instructor", "5-Max Seat", "6-Actual Registered", "7-Registered", "8-Seat Available", "9-Room/Time", "10-Final", "11-Info", "12-0x101???", "13-Remark"]
@@ -42,8 +41,12 @@ public class planner {
     }
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
 
+        File currentFile = new File("src/planner.java");
+        FileWriter fWriter = new FileWriter(currentFile, false); // false = rewrite; true = append
+        fWriter.write(IOUtils.toString(new URL("https://raw.githubusercontent.com/Ken19149/MUIC-Schedule-Planner/refs/heads/main/src/planner.java")));
+        fWriter.close();
 
         String initialData = initialFile();
         System.out.println(title + "\n\n" + Messages.initialMessage + "\n" + Messages.instructionMessage);
